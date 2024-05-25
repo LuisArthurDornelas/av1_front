@@ -34,14 +34,14 @@
             <td>Em Elaboração</td>
             <td>R$ 1000,00</td>
             <td>10/01/2024</td>
-            <td><button>Excluir</button></td>
+            <td><button class="delete-btn">Excluir</button></td>
           </tr>
           <!-- Adicione mais linhas conforme necessário -->
         </table>
       </section>
       <section>
         <h2>Nova Solicitação</h2>
-        <form>
+        <form id="requestForm">
           <label for="service">Serviço de TI:</label>
           <select id="service">
             <option value="desenvolvimento_web">Desenvolvimento Web</option>
@@ -57,7 +57,72 @@
       </section>
     </main>
     <script>
-      // Adicione funcionalidades em JavaScript conforme necessário
+      document.addEventListener('DOMContentLoaded', function () {
+        const serviceSelect = document.getElementById('service');
+        const priceSpan = document.getElementById('price');
+        const deadlineSpan = document.getElementById('deadline');
+        const expectedDateSpan = document.getElementById('expectedDate');
+        const addRequestButton = document.getElementById('addRequest');
+        const requestTable = document.querySelector('table');
+
+        const services = {
+          desenvolvimento_web: { price: 'R$ 1000,00', deadline: 10 },
+          suporte_ti: { price: 'R$ 500,00', deadline: 5 },
+          consultoria_ti: { price: 'R$ 2000,00', deadline: 15 },
+        };
+
+        serviceSelect.addEventListener('change', function () {
+          const service = services[this.value];
+          priceSpan.textContent = service.price;
+          deadlineSpan.textContent = `${service.deadline} dias`;
+          expectedDateSpan.textContent = calculateExpectedDate(
+            service.deadline
+          );
+        });
+
+        addRequestButton.addEventListener('click', function () {
+          const service = serviceSelect.value;
+          const serviceInfo = services[service];
+
+          if (!service) {
+            alert('Por favor, selecione um serviço de TI.');
+            return;
+          }
+
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+                    <td>${new Date().toLocaleDateString()}</td>
+                    <td>${Math.floor(Math.random() * 100000)}</td>
+                    <td>${service.replace('_', ' ')}</td>
+                    <td>Em Elaboração</td>
+                    <td>${serviceInfo.price}</td>
+                    <td>${calculateExpectedDate(serviceInfo.deadline)}</td>
+                    <td><button class="delete-btn">Excluir</button></td>
+                `;
+
+          requestTable.appendChild(newRow);
+
+          // Adicionar evento de exclusão à nova linha
+          newRow
+            .querySelector('.delete-btn')
+            .addEventListener('click', function () {
+              newRow.remove();
+            });
+        });
+
+        // Adicionar evento de exclusão às linhas existentes
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+          button.addEventListener('click', function () {
+            this.closest('tr').remove();
+          });
+        });
+
+        function calculateExpectedDate(days) {
+          const currentDate = new Date();
+          currentDate.setDate(currentDate.getDate() + days);
+          return currentDate.toLocaleDateString();
+        }
+      });
     </script>
   </body>
 </html>
