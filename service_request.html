@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Solicitação de Serviços de TI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <img src="logo.png" alt="Logo da Empresa" />
+      <h1>Solicitação de Serviços de TI</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Bem-vindo, Usuário</h2>
+        <p>Email: usuario@exemplo.com</p>
+      </section>
+      <section>
+        <h2>Solicitações Anteriores</h2>
+        <table>
+          <tr>
+            <th>Data do Pedido</th>
+            <th>Número da Solicitação</th>
+            <th>Serviço</th>
+            <th>Status</th>
+            <th>Preço</th>
+            <th>Data Prevista</th>
+            <th>Ação</th>
+          </tr>
+          <tr>
+            <td>01/01/2024</td>
+            <td>12345</td>
+            <td>Desenvolvimento Web</td>
+            <td>Em Elaboração</td>
+            <td>R$ 1000,00</td>
+            <td>10/01/2024</td>
+            <td><button>Excluir</button></td>
+          </tr>
+          <!-- Adicione mais linhas conforme necessário -->
+        </table>
+      </section>
+      <section>
+        <h2>Nova Solicitação</h2>
+        <form>
+          <label for="service">Serviço de TI:</label>
+          <select id="service">
+            <option value="desenvolvimento_web">Desenvolvimento Web</option>
+            <option value="suporte_ti">Suporte de TI</option>
+            <option value="consultoria_ti">Consultoria de TI</option>
+          </select>
+          <p>Preço: <span id="price">R$ 1000,00</span></p>
+          <p>Prazo de Atendimento: <span id="deadline">10 dias</span></p>
+          <p>Data Prevista: <span id="expectedDate">10/01/2024</span></p>
+          <p>Status: Em Elaboração</p>
+          <button type="button" id="addRequest">Incluir Solicitação</button>
+        </form>
+      </section>
+    </main>
+    <script>
+      // Adicione funcionalidades em JavaScript conforme necessário
+    </script>
+  </body>
+</html>
