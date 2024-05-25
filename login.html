@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login de Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo da Empresa">
+        <h1>Login de Clientes</h1>
+    </header>
+    <main>
+        <form id="loginForm">
+            <label for="login">Login (Email):</label>
+            <input type="email" id="login" name="login" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Realizar Login</button>
+            <button type="button" id="clearBtn">Limpar</button>
+        </form>
+        <nav>
+            <a href="register.html">Cadastrar Cliente</a>
+            <a href="change_password.html">Trocar Senha</a>
+        </nav>
+    </main>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+            if (validateEmail(login) && password) {
+                alert('Validação realizada com sucesso');
+                window.location.href = 'home.html';
+            } else {
+                alert('Por favor, preencha os campos corretamente.');
+            }
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function () {
+            document.getElementById('login').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('login').focus();
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+</body>
+</html>
