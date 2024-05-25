@@ -7,7 +7,7 @@
   </head>
   <body>
     <header>
-      <img src="logo.png" alt="Logo da Empresa" />
+      <img src="images/logo.png" alt="Logo da Empresa" />
       <h1>Bem-vindo à Empresa de TI</h1>
       <nav>
         <a href="login.html">Login</a>
@@ -27,7 +27,7 @@
         <iframe
           width="560"
           height="315"
-          src="https://www.youtube.com/embed/VIDEO_ID"
+          src="https://www.youtube.com/embed/KWuqPn-Eurw"
           frameborder="0"
           allowfullscreen
         ></iframe>
@@ -35,10 +35,30 @@
       <section>
         <h2>Nossas Instalações</h2>
         <div class="gallery">
-          <img src="photo1.jpg" alt="Instalação 1" />
-          <img src="photo2.jpg" alt="Instalação 2" />
-          <img src="photo3.jpg" alt="Instalação 3" />
-          <img src="photo4.jpg" alt="Instalação 4" />
+          <a
+            href="images/photo1.jpg"
+            data-lightbox="gallery"
+            data-title="Instalação 1"
+            ><img src="images/photo1.jpg" alt="Instalação 1"
+          /></a>
+          <a
+            href="images/photo2.jpg"
+            data-lightbox="gallery"
+            data-title="Instalação 2"
+            ><img src="images/photo2.jpg" alt="Instalação 2"
+          /></a>
+          <a
+            href="images/photo3.jpg"
+            data-lightbox="gallery"
+            data-title="Instalação 3"
+            ><img src="images/photo3.jpg" alt="Instalação 3"
+          /></a>
+          <a
+            href="images/photo4.jpg"
+            data-lightbox="gallery"
+            data-title="Instalação 4"
+            ><img src="images/photo4.jpg" alt="Instalação 4"
+          /></a>
         </div>
       </section>
       <section>
@@ -89,11 +109,13 @@
         <h3>Endereço</h3>
         <p>Rua Exemplo, 123, Cidade, Estado, CEP 12345-678</p>
       </div>
-      <div>
+      <div class="payment-methods">
         <h3>Formas de Pagamento</h3>
-        <img src="pagamento1.png" alt="Pagamento 1" />
-        <img src="pagamento2.png" alt="Pagamento 2" />
-        <img src="pagamento3.png" alt="Pagamento 3" />
+        <div class="payment-icons">
+          <img src="images/pagamento1.png" alt="Pagamento 1" />
+          <img src="images/pagamento2.png" alt="Pagamento 2" />
+          <img src="images/pagamento3.png" alt="Pagamento 3" />
+        </div>
       </div>
     </footer>
     <script>
@@ -105,5 +127,10 @@
         }
       });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+      rel="stylesheet"
+    />
   </body>
 </html>
