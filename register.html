@@ -57,68 +57,156 @@
       </form>
     </main>
     <script>
-      document
-        .getElementById('registerForm')
-        .addEventListener('submit', function (e) {
-          e.preventDefault();
-          const email = document.getElementById('email').value;
-          const password = document.getElementById('password').value;
-          const confirmPassword =
-            document.getElementById('confirmPassword').value;
-          const name = document.getElementById('name').value;
-          const cpf = document.getElementById('cpf').value;
-          const birthdate = document.getElementById('birthdate').value;
+      document.addEventListener('DOMContentLoaded', function () {
+        document
+          .getElementById('registerForm')
+          .addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword =
+              document.getElementById('confirmPassword').value;
+            const name = document.getElementById('name').value;
+            const cpf = document.getElementById('cpf').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const phone = document.getElementById('phone').value;
 
-          if (!validateEmail(email)) {
-            alert('Email inválido');
-            return;
+            if (!validateEmail(email)) {
+              alert('Email inválido');
+              return;
+            }
+            if (!validatePassword(password)) {
+              alert(
+                'A senha deve ter pelo menos 6 caracteres, incluindo pelo menos um número, uma letra maiúscula e um dos seguintes caracteres especiais: @ # $ % & * ! ? / \\ | - _ + . ='
+              );
+              return;
+            }
+            if (password !== confirmPassword) {
+              alert('As senhas não coincidem');
+              return;
+            }
+            if (!validateName(name)) {
+              alert(
+                'O nome deve ser preenchido, ter pelo menos duas palavras, e a primeira palavra deve ter pelo menos 2 caracteres. Caracteres especiais não são permitidos.'
+              );
+              return;
+            }
+            if (!validateCPF(cpf)) {
+              alert('CPF inválido');
+              return;
+            }
+            if (!validateBirthdate(birthdate)) {
+              alert('Data de nascimento inválida ou cliente menor de idade');
+              return;
+            }
+            if (phone && !validatePhone(phone)) {
+              alert('Telefone inválido');
+              return;
+            }
+
+            alert('Validação realizada com sucesso');
+            // Adicionar lógica para enviar o formulário
+          });
+
+        document
+          .getElementById('clearBtn')
+          .addEventListener('click', function () {
+            document.getElementById('registerForm').reset();
+            document.getElementById('email').focus();
+          });
+
+        document
+          .getElementById('backBtn')
+          .addEventListener('click', function () {
+            window.history.back();
+          });
+
+        function validateEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(String(email).toLowerCase());
+        }
+
+        function validatePassword(password) {
+          const minLength = 6;
+          const hasNumber = /[0-9]/;
+          const hasUpperCase = /[A-Za-z]/;
+          const hasSpecialChar = /[@#$%&*!?\\|\\-_+=.]/;
+          const noInvalidChar = /^[^\¨{}[\]´`~^:;<>,"']*$/;
+
+          if (
+            password.length >= minLength &&
+            hasNumber.test(password) &&
+            hasUpperCase.test(password) &&
+            hasSpecialChar.test(password) &&
+            noInvalidChar.test(password)
+          ) {
+            alert('Welcome to the jungle!');
           }
-          if (!validatePassword(password)) {
-            alert(
-              'A senha deve ter pelo menos 6 caracteres, incluindo pelo menos um número, uma letra maiúscula e um dos seguintes caracteres especiais: @ # $ % & * ! ? / \\ | - _ + . ='
-            );
-            return;
+
+          return (
+            password.length >= minLength &&
+            hasNumber.test(password) &&
+            hasUpperCase.test(password) &&
+            hasSpecialChar.test(password) &&
+            noInvalidChar.test(password)
+          );
+        }
+
+        function validateName(name) {
+          const noSpecialChar = /^[a-zA-Z\s]+$/;
+          const words = name.trim().split(/\s+/);
+          return (
+            words.length >= 2 &&
+            words[0].length >= 2 &&
+            noSpecialChar.test(name)
+          );
+        }
+
+        function validateCPF(cpf) {
+          const re = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+          if (!re.test(cpf)) return false;
+
+          cpf = cpf.replace(/[^\d]+/g, '');
+          if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+          let sum = 0;
+          for (let i = 0; i < 9; i++) {
+            sum += parseInt(cpf.charAt(i)) * (10 - i);
           }
-          if (password !== confirmPassword) {
-            alert('As senhas não coincidem');
-            return;
+          let mod = 11 - (sum % 11);
+          if (mod === 10 || mod === 11) mod = 0;
+          if (mod !== parseInt(cpf.charAt(9))) return false;
+
+          sum = 0;
+          for (let i = 0; i < 10; i++) {
+            sum += parseInt(cpf.charAt(i)) * (11 - i);
           }
-          // Adicionar outras validações conforme necessário
+          mod = 11 - (sum % 11);
+          if (mod === 10 || mod === 11) mod = 0;
+          if (mod !== parseInt(cpf.charAt(10))) return false;
 
-          alert('Validação realizada com sucesso');
-          // Adicionar lógica para enviar o formulário
-        });
+          return true;
+        }
 
-      document
-        .getElementById('clearBtn')
-        .addEventListener('click', function () {
-          document.getElementById('registerForm').reset();
-          document.getElementById('email').focus();
-        });
+        function validateBirthdate(birthdate) {
+          const birthDate = new Date(birthdate);
+          const today = new Date();
+          const age = today.getFullYear() - birthDate.getFullYear();
+          const month = today.getMonth() - birthDate.getMonth();
+          if (
+            month < 0 ||
+            (month === 0 && today.getDate() < birthDate.getDate())
+          ) {
+            age--;
+          }
+          return age >= 18;
+        }
 
-      document.getElementById('backBtn').addEventListener('click', function () {
-        window.history.back();
+        function validatePhone(phone) {
+          const re = /^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/;
+          return re.test(phone);
+        }
       });
-
-      function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(String(email).toLowerCase());
-      }
-
-      function validatePassword(password) {
-        const minLength = 6;
-        const hasNumber = /[0-9]/;
-        const hasUpperCase = /[A-Z]/;
-        const hasSpecialChar = /[@#$%&*!?/\\|\\-_+=.]/;
-        const noInvalidChar = /^[^\¨{}[\]´`~^:;<>,"']*$/;
-        return (
-          password.length >= minLength &&
-          hasNumber.test(password) &&
-          hasUpperCase.test(password) &&
-          hasSpecialChar.test(password) &&
-          noInvalidChar.test(password)
-        );
-      }
     </script>
   </body>
 </html>
