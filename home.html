@@ -119,10 +119,13 @@
       </div>
     </footer>
     <script>
-      // Mostrar link de solicitação de serviços se o login for realizado
       document.addEventListener('DOMContentLoaded', function () {
-        const isLoggedIn = false; // Suponha que há um método para verificar o login
-        if (isLoggedIn) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        console.log(users);
+        const loggedInUser = users.find((user) => user.isLoggedIn);
+        console.log(loggedInUser);
+
+        if (loggedInUser) {
           document.getElementById('service-link').style.display = 'block';
         }
       });
